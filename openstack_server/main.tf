@@ -2,7 +2,7 @@ resource "openstack_networking_port_v2" "this" {
   name               = "${var.hostname}-port"
   network_id         = var.network_id
   security_group_ids = var.security_group_ids
-  tags               = var.tags
+  tags               = [for k, v in var.labels : "${k}:${v}"]
 
   dynamic "fixed_ip" {
     for_each = var.fixed_ips
@@ -18,7 +18,7 @@ resource "openstack_blockstorage_volume_v3" "this" {
   size        = var.disk_size
   volume_type = var.volume_type
   image_id    = var.image_id
-  metadata    = var.metadata
+  metadata    = var.labels
 }
 
 resource "openstack_compute_instance_v2" "this" {
@@ -37,7 +37,7 @@ resource "openstack_compute_instance_v2" "this" {
 
   key_pair  = var.key_pair_name
   user_data = var.user_data
-  metadata  = var.metadata
+  metadata  = var.labels
 
   lifecycle {
     ignore_changes = [user_data]

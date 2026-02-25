@@ -55,14 +55,9 @@ variable "fixed_ips" {
   default = []
 }
 
-variable "metadata" {
-  description = "Instance and volume metadata"
+variable "labels" {
+  description = "Key-value labels applied as instance/volume metadata and port tags"
   type        = map(string)
   default     = {}
 }
 
-variable "tags" {
-  description = "Port tags"
-  type        = list(string)
-  default     = []
-}

@@ -22,8 +22,7 @@ Generic Terraform module that creates an OpenStack VM consisting of a networking
 | `volume_type` | `string` | no | `null` | Storage tier (provider default if null) |
 | `user_data` | `string` | no | `""` | Cloud-init content |
 | `fixed_ips` | `list(object({subnet_id, ip_address}))` | no | `[]` | Static IPs; DHCP if empty |
-| `metadata` | `map(string)` | no | `{}` | Instance and volume metadata |
-| `tags` | `list(string)` | no | `[]` | Port tags |
+| `labels` | `map(string)` | no | `{}` | Key-value labels applied as instance/volume metadata and port tags |
 
 ## Outputs
 
@@ -66,8 +65,7 @@ module "my_server" {
     hostname = "my-server"
   })
 
-  metadata = { managed_by = "terraform" }
-  tags     = ["managed_by:terraform"]
+  labels = { managed_by = "terraform" }
 }
 ```
 
